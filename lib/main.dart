@@ -23,13 +23,13 @@ class RandomWords extends StatefulWidget {
 
 class _RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
-  final _saved = Set<WordPair>();
-  final _biggerFont = TextStyle(fontSize: 18.0);
+  final _saved = <WordPair>{};
+  final _biggerFont = const TextStyle(fontSize: 18);
 
   Widget _buildRow(WordPair pair) {
     final alreadySaved = _saved.contains(pair);
     return ListTile(
-      leading: Icon(Icons.auto_awesome, color: Colors.green),
+      leading: const Icon(Icons.auto_awesome, color: Colors.green),
       title: Text(
         pair.asPascalCase,
         style: _biggerFont,
@@ -52,10 +52,12 @@ class _RandomWordsState extends State<RandomWords> {
 
   Widget _buildSuggestions() {
     return ListView.builder(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         itemBuilder: (context, i) {
           // 奇数行で区切り線
-          if (i.isOdd) return Divider(color: Colors.red);
+          if (i.isOdd) {
+            return const Divider(color: Colors.red);
+          }
 
           // 区切り線の分を排除したいので2で除算
           final index = i ~/ 2;
@@ -90,7 +92,7 @@ class _RandomWordsState extends State<RandomWords> {
 
           return Scaffold(
             appBar: AppBar(
-              title: Text('Saved Suggestions'),
+              title: const Text('Saved Suggestions'),
             ),
             body: ListView(children: devided),
           );
@@ -103,9 +105,9 @@ class _RandomWordsState extends State<RandomWords> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Startup Name Generator'),
+        title: const Text('Startup Name Generator'),
         actions: [
-          IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
+          IconButton(icon: const Icon(Icons.list), onPressed: _pushSaved),
         ],
       ),
       body: _buildSuggestions(),
