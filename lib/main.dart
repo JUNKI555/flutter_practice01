@@ -7,15 +7,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Welcome to Flutter',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Welcome to Flutter'),
-        ),
-        body: Center(
-          child: RandomWords(),
-        ),
-      ),
+      title: 'Startup Name Generator',
+      home: RandomWords(),
     );
   }
 }
@@ -26,9 +19,41 @@ class RandomWords extends StatefulWidget {
 }
 
 class _RandomWordsState extends State<RandomWords> {
+  final _suggestions = <WordPair>[];
+  final _biggerFont = TextStyle(fontSize: 18.0);
+
+  Widget _buildRow(WordPair pair) {
+    return ListTile(
+      title: Text(
+        pair.asPascalCase,
+        style: _biggerFont,
+      ),
+    );
+  }
+
+  Widget _buildSuggestions() {
+    return ListView.builder(
+        padding: EdgeInsets.all(16.0),
+        itemBuilder: (context, i) {
+          // 奇数行で区切り線
+          if (i.isOdd) return Divider(color: Colors.red);
+
+          // 区切り線の分を排除したいので2で除算
+          final index = i ~/ 2;
+          if (index >= _suggestions.length) {
+            _suggestions.addAll(generateWordPairs().take(10));
+          }
+
+          // 偶数行ならListTileを描画
+          return _buildRow(_suggestions[index]);
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final wordPair = WordPair.random();
-    return Text(wordPair.asPascalCase);
+    return Scaffold(
+      appBar: AppBar(title: Text('Startup Name Generator')),
+      body: _buildSuggestions(),
+    );
   }
 }
