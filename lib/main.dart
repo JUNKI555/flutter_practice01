@@ -64,7 +64,36 @@ class _RandomWordsState extends State<RandomWords> {
         });
   }
 
-  void _pushSaved() {}
+  void _pushSaved() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          final tiles = _saved.map(
+            (WordPair pair) {
+              return ListTile(
+                title: Text(
+                  pair.asPascalCase,
+                  style: _biggerFont,
+                ),
+              );
+            },
+          );
+
+          final devided = ListTile.divideTiles(
+            context: context,
+            tiles: tiles,
+          ).toList();
+
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Saved Suggestions'),
+            ),
+            body: ListView(children: devided),
+          );
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
