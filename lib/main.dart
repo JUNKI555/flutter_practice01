@@ -77,6 +77,7 @@ class _RandomWordsState extends State<RandomWords> {
           final tiles = _saved.map(
             (WordPair pair) {
               return ListTile(
+                leading: const Icon(Icons.favorite, color: Colors.red),
                 title: Text(
                   pair.asPascalCase,
                   style: _biggerFont,
