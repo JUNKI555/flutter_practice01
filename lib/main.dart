@@ -29,6 +29,7 @@ class _RandomWordsState extends State<RandomWords> {
   Widget _buildRow(WordPair pair) {
     final alreadySaved = _saved.contains(pair);
     return ListTile(
+      leading: Icon(Icons.auto_awesome, color: Colors.green),
       title: Text(
         pair.asPascalCase,
         style: _biggerFont,
