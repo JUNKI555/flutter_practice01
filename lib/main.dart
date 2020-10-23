@@ -50,24 +50,34 @@ class _RandomWordsState extends State<RandomWords> {
     );
   }
 
+  Future<void> _setSuggestions() async {
+    setState(() {
+      _saved.clear();
+      _suggestions.clear();
+      final newWordPairs = generateWordPairs().take(10);
+      _suggestions.addAll(newWordPairs);
+    });
+  }
+
   Widget _buildSuggestions() {
-    return ListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemBuilder: (context, i) {
-          // 奇数行で区切り線
-          if (i.isOdd) {
-            return const Divider(color: Colors.red);
-          }
+    return RefreshIndicator(
+      onRefresh: _setSuggestions,
+      child: ListView.builder(
+          padding: const EdgeInsets.all(16),
+          itemCount: 20,
+          itemBuilder: (context, i) {
+            // 奇数行で区切り線
+            if (i.isOdd) {
+              return const Divider(color: Colors.red);
+            }
 
-          // 区切り線の分を排除したいので2で除算
-          final index = i ~/ 2;
-          if (index >= _suggestions.length) {
-            _suggestions.addAll(generateWordPairs().take(10));
-          }
+            // 区切り線の分を排除したいので2で除算
+            final index = i ~/ 2;
 
-          // 偶数行ならListTileを描画
-          return _buildRow(_suggestions[index]);
-        });
+            // 偶数行ならListTileを描画
+            return _buildRow(_suggestions[index]);
+          }),
+    );
   }
 
   void _pushSaved() {
@@ -100,6 +110,12 @@ class _RandomWordsState extends State<RandomWords> {
         },
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _setSuggestions();
   }
 
   @override

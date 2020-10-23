@@ -13,6 +13,11 @@
   - https://pub.dev/packages/pedantic_mono
 - `Set<WordPair>()` to `<WordPair>{}`
   - https://dart.dev/guides/language/language-tour#sets
+- Pull-to-refresh
+  - Implementing Pull-to-refresh in Flutter | Muhammad Affan Khan | Medium
+  - https://medium.com/@maffan/implementing-pull-to-refresh-in-flutter-59dd31239624
+  - Flutterでオーバースクロールでの画面更新を可能にするRefreshIndicatorの使い方 | virment
+  - https://www.virment.com/flutter-how-to-use-refreshindicator-scrollable-view/
 
 ## Application Images
 ![image1.png](https://github.com/JUNKI555/flutter_practice01/blob/main/image1.png)
